@@ -39,15 +39,17 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageViewHo
     public void onBindViewHolder(final ImageViewHolder imageViewHolder, int i) {
         final Upload upload = mUploads.get(i);
         imageViewHolder.TextViewName.setText(upload.getName());
+        imageViewHolder.TextViewId.setText(upload.getHotel_user());
         Picasso.get().load(upload.getImageuri()).fit().into(imageViewHolder.imageview);
         imageViewHolder.imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent("com.bhukkad.eatit.MenuActivity");
-                intent.putExtra("hotel_user",hotel);
+                intent.putExtra("hotel_user",imageViewHolder.TextViewId.getText().toString());
                 intent.putExtra("user",user);
                 mContext.startActivity(intent);
 //                Toast.makeText(mContext,imageViewHolder.TextViewName.getText().toString(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext,imageViewHolder.TextViewId.getText().toString(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -59,10 +61,12 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageViewHo
 
     public class ImageViewHolder extends RecyclerView.ViewHolder{
         private TextView TextViewName;
+        private TextView TextViewId;
         private ImageView imageview;
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             TextViewName = itemView.findViewById(R.id.textView_name);
+            TextViewId = itemView.findViewById(R.id.textView_id);
             imageview = itemView.findViewById(R.id.imageView_card );
 
         }

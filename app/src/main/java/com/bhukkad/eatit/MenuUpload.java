@@ -1,19 +1,18 @@
 package com.bhukkad.eatit;
 
-class Upload {
+class MenuUpload {
 
-    private String name,imageuri, hotel_user ;
+    private String name,imageuri;
 
-    public Upload(){
+    public MenuUpload(){
 
     }
 
-    public Upload(String hotel_user, String name,String uri){
+    public MenuUpload(String name,String uri){
         if(name.trim().equals(""))
             name = "No Name";
         this.name = name ;
         imageuri = uri;
-        this.hotel_user = hotel_user;
     }
 
     public String getImageuri() {
@@ -24,7 +23,4 @@ class Upload {
         return name;
     }
 
-    public String getHotel_user() {
-        return hotel_user;
-    }
 }

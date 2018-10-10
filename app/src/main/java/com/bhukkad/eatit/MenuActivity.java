@@ -27,54 +27,53 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private Intent intent ;
-    private String hotel_user,user ;
-    private TextView hotel ;
-    private DatabaseReference databaseReference ;
+public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private Intent intent;
+    private String hotel_user, user;
+    private TextView hotel;
+    private DatabaseReference databaseReference;
 
-    private DrawerLayout drawerLayout ;
+    private DrawerLayout drawerLayout;
 
     RecyclerView mRecyclerView;
     ImageAdapter mImageAdapter;
     List<Upload> mUploads;
 
-    private TextView nav_header ;
-    private ImageView nav_image ;
+    private TextView nav_header;
+    private ImageView nav_image;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        intent = getIntent() ;
+        intent = getIntent();
         hotel_user = intent.getStringExtra("hotel_user");
         user = intent.getStringExtra("user");
         event_menu();
     }
+
     @Override
     public void onBackPressed() {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if(id == R.id.nav_menu_profile){
+        if (id == R.id.nav_menu_profile) {
             Intent intent_userProfile = new Intent("com.bhukkad.eatit.UserProfileActivity");
-            intent_userProfile.putExtra("user",user);
+            intent_userProfile.putExtra("user", user);
             startActivity(intent_userProfile);
-        }
-        else if(id == R.id.nav_menu_logout){
-            Intent intent_userLogout = new Intent(MenuActivity.this,MainActivity.class);
+        } else if (id == R.id.nav_menu_logout) {
+            Intent intent_userLogout = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(intent_userLogout);
             System.exit(0);
-        }
-        else if(id == R.id.nav_menu_location){
+        } else if (id == R.id.nav_menu_location) {
             Intent intent_userLocation = new Intent("com.bhukkad.eatit.UserMapsActivity");
-            intent_userLocation.putExtra("user",user);
-            intent_userLocation.putExtra("node","Users");
+            intent_userLocation.putExtra("user", user);
+            intent_userLocation.putExtra("node", "Users");
             startActivity(intent_userLocation);
         }
         return false;
@@ -85,8 +84,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
         setSupportActionBar(toolbar);
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout_menu);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(MenuActivity.this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_menu);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(MenuActivity.this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_user_menu);
@@ -102,13 +101,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         databaseReference.child("Users").child(user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                nav_header = (TextView) findViewById(R.id.textView_nav_menu) ;
+                nav_header = (TextView) findViewById(R.id.textView_nav_menu);
                 nav_image = (ImageView) findViewById(R.id.imageView_nav_menu);
-                String name,pic;
+                String name, pic;
 
-                name = dataSnapshot.child("Name").getValue().toString() ;
+                name = dataSnapshot.child("Name").getValue().toString();
                 nav_header.setText(name);
-                if(dataSnapshot.hasChild("Image")) {
+                if (dataSnapshot.hasChild("Image")) {
                     pic = dataSnapshot.child("Image").getValue().toString();
                     Picasso.get().load(pic).fit().into(nav_image);
                 }
@@ -119,6 +118,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+        Toast.makeText(MenuActivity.this, hotel_user, Toast.LENGTH_SHORT).show();
 
     }
 }

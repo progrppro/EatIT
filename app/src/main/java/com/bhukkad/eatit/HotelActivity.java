@@ -54,6 +54,7 @@ public class HotelActivity extends AppCompatActivity implements NavigationView.O
     private StorageTask storageTask ;
     private DrawerLayout drawerLayout ;
     private boolean category ;
+    private String cat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,12 +163,13 @@ public class HotelActivity extends AppCompatActivity implements NavigationView.O
         upload_dish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                category = false;
                 if(category_hotel.getText().toString().equals("") || category_hotel.getText().toString().equals(null) || dishname_hotel.getText().toString().equals("")
                         || dishname_hotel.getText().toString().equals(null) || price_hotel.getText().toString().equals("") || price_hotel.getText().toString().equals(null)){
                     if(!category_hotel.getText().toString().equals("")){
                         category = true ;
                         databaseReference.child("Hotels").child(user).child("Menu").child(category_hotel.getText().toString()).child("Name").setValue(category_hotel.getText().toString());
+                        cat = category_hotel.getText().toString();
                         if (storageTask != null && storageTask.isInProgress()) {
                             Toast.makeText(HotelActivity.this, "Upload in Progress", Toast.LENGTH_SHORT).show();
                         } else {
@@ -213,7 +215,12 @@ public class HotelActivity extends AppCompatActivity implements NavigationView.O
 
     public void UploadFile(){
         if(imageUri != null){
-            StorageReference ref = storageReference.child(dishname_hotel.getText().toString() + "." + getFileExtension(imageUri));
+            String imgname = "";
+            if(!dishname_hotel.getText().toString().trim().equals(""))
+                imgname = dishname_hotel.getText().toString();
+            else
+                imgname = cat;
+            StorageReference ref = storageReference.child(imgname + "." + getFileExtension(imageUri));
             storageTask = ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
