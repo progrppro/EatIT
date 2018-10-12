@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -62,7 +64,8 @@ public class LoginActivity extends AppCompatActivity implements NavigationView.O
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             if (time + backpressed > System.currentTimeMillis()) {
-                super.onBackPressed();
+                finish();
+                System.exit(0);
             } else {
                 Toast.makeText(LoginActivity.this, "Press back again to exit", Toast.LENGTH_SHORT).show();
             }
@@ -102,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements NavigationView.O
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(LoginActivity.this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_user);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_user);
         navigationView.setNavigationItemSelectedListener(this);
 
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -136,15 +139,15 @@ public class LoginActivity extends AppCompatActivity implements NavigationView.O
         databaseReference.child("Users").child(user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                nav_header = (TextView) findViewById(R.id.textView5);
-                nav_image = (ImageView) findViewById(R.id.imageView2);
+                View headerView = navigationView.getHeaderView(0);
+                nav_header = (TextView) headerView.findViewById(R.id.textView5);
+                nav_image = (ImageView) headerView.findViewById(R.id.imageView2);
                 String name, pic;
-
                 name = dataSnapshot.child("Name").getValue().toString();
                 nav_header.setText(name);
                 if (dataSnapshot.hasChild("Image")) {
                     pic = dataSnapshot.child("Image").getValue().toString();
-                    Picasso.get().load(pic).fit().into(nav_image);
+                    Picasso.get().load(pic).networkPolicy(NetworkPolicy.OFFLINE).fit().into(nav_image);
                 }
             }
 

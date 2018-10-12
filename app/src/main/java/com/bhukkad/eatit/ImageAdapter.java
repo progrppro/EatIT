@@ -1,5 +1,6 @@
 package com.bhukkad.eatit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,12 +21,14 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageViewHo
     private Context mContext;
     private List<Upload> mUploads;
     private String hotel,user ;
+    private Order order;
 
     public ImageAdapter(Context mContext, List<Upload> mUploads,String hotel,String user) {
         this.mContext = mContext;
         this.mUploads = mUploads;
         this.hotel = hotel ;
         this.user = user;
+        order = new Order();
     }
 
     @NonNull
@@ -46,8 +49,10 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageViewHo
             public void onClick(View view) {
                 Intent intent = new Intent("com.bhukkad.eatit.MenuActivity");
                 intent.putExtra("hotel_user",imageViewHolder.TextViewId.getText().toString());
+                intent.putExtra("order",order);
                 intent.putExtra("user",user);
                 mContext.startActivity(intent);
+                ((Activity) mContext).finish();
 //                Toast.makeText(mContext,imageViewHolder.TextViewName.getText().toString(),Toast.LENGTH_SHORT).show();
 //                Toast.makeText(mContext,imageViewHolder.TextViewId.getText().toString(),Toast.LENGTH_SHORT).show();
             }

@@ -18,29 +18,41 @@ import java.util.List;
 public class MenuImageAdapter extends RecyclerView.Adapter<MenuImageAdapter.MenuImageViewHolder> {
 
     private Context mContext;
-    private List<Upload> mUploads;
+    private List<MenuUpload> mUploads;
+    private String user, hotel_user;
+    private Order order;
 
-    public MenuImageAdapter(Context mContext, List<Upload> mUploads) {
+    public MenuImageAdapter(Context mContext, List<MenuUpload> mUploads, String user, String hotel_user, Order order) {
         this.mContext = mContext;
         this.mUploads = mUploads;
+        this.hotel_user = hotel_user;
+        this.user = user;
+        this.order = order;
     }
 
     @NonNull
     @Override
     public MenuImageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.image_item ,viewGroup,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.menu_image_item ,viewGroup,false);
         return new MenuImageAdapter.MenuImageViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MenuImageViewHolder menuImageViewHolder, int i) {
-        final Upload upload = mUploads.get(i);
+        final MenuUpload upload = mUploads.get(i);
         menuImageViewHolder.TextViewName.setText(upload.getName());
         Picasso.get().load(upload.getImageuri()).fit().into(menuImageViewHolder.imageview);
         menuImageViewHolder.imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,menuImageViewHolder.TextViewName.getText().toString(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, CatActivity.class);
+                intent.putExtra("order",order);
+                intent.putExtra("hotel_user",hotel_user);
+                intent.putExtra("user",user);
+                intent.putExtra("category", menuImageViewHolder.TextViewName.getText().toString());
+
+                mContext.startActivity(intent);
+//                Toast.makeText(mContext,menuImageViewHolder.TextViewName.getText().toString(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -55,8 +67,8 @@ public class MenuImageAdapter extends RecyclerView.Adapter<MenuImageAdapter.Menu
         private ImageView imageview;
         public MenuImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            TextViewName = itemView.findViewById(R.id.textView_name);
-            imageview = itemView.findViewById(R.id.imageView_card );
+            TextViewName = itemView.findViewById(R.id.textView_name_menu);
+            imageview = itemView.findViewById(R.id.imageView_card_menu );
 
         }
     }

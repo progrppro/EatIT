@@ -113,7 +113,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".CatActivity"></activity>
+        <activity
+            android:name=".CatActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".CartActivity"></activity>
     </application>
 
 </manifest>
