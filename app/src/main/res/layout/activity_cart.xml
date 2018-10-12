@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_cart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".CatActivity"
+    tools:openDrawer="start">
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar_cat"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:elevation="4dp"-->
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+
+    <!--<FrameLayout-->
+    <!--android:id="@+id/fragment_container_cat"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" >-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_cart"
+        android:layout_above="@+id/priceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_above="@+id/buttonCart_cart"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:textSize="35sp"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@+id/textView_center_price_cart"/>
+
+    <Button
+        android:id="@+id/buttonCart_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:height="60dp"
+        android:text="Check out" />
+
+    <TextView
+        android:id="@+id/textView_center_price_cart"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/recycler_view_cart"
+        android:layout_toLeftOf="@+id/textView_center_price_cart"
+        android:textSize="35dp"
+        android:text="Total Price" />
+
+    <!--<Button-->
+    <!--android:id="@+id/button3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="18dp"-->
+    <!--android:text="Choose File" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="330dp"-->
+    <!--android:layout_below="@+id/button3"-->
+    <!--android:layout_above="@+id/button5"/>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/button5"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="37dp"-->
+    <!--android:text="Upload" />-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/progressBar2"-->
+    <!--style="?android:attr/progressBarStyleHorizontal"-->
+    <!--android:layout_width="325dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/button5"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="-37dp" />-->
+
+
+
+    <!--</RelativeLayout>-->
+
+    <!--</FrameLayout>-->
+
+
+
+    <!--</LinearLayout>-->
+
+    <!--<android.support.design.widget.NavigationView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="start"-->
+    <!--app:headerLayout="@layout/nav_header_cat"-->
+    <!--android:id="@+id/nav_view_user_cat"-->
+    <!--app:menu="@menu/drawer_menu_cat" />-->
+
+
+</RelativeLayout>

@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements NavigationView.O
                 nav_header.setText(name);
                 if (dataSnapshot.hasChild("Image")) {
                     pic = dataSnapshot.child("Image").getValue().toString();
-                    Picasso.get().load(pic).networkPolicy(NetworkPolicy.OFFLINE).fit().into(nav_image);
+                    Picasso.get().load(pic).fit().into((ImageView)headerView.findViewById(R.id.imageView2));
                 }
             }
 
